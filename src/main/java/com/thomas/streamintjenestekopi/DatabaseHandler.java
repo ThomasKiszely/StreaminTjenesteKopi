@@ -10,6 +10,7 @@ import java.util.List;
 
 public class DatabaseHandler {
     public DatabaseHandler() {}
+
     public String createUserObject(User user) {
         String sql = "INSERT INTO users (first_name, last_name, email, subscription_type) VALUES (?,?,?,?)";
         try(Connection connection = DatabaseConnection.getConnection();
@@ -29,6 +30,26 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         return "User creation failed";
+    }
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+        try(Connection connection = DatabaseConnection.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int userId = resultSet.getInt("user_id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String email = resultSet.getString("email");
+                String subscriptionType = resultSet.getString("subscription_type");
+                User user = new User(userId, firstName, lastName, email, subscriptionType);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
     public User getUserObject(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
@@ -96,7 +117,7 @@ public class DatabaseHandler {
                 "ON movies.movie_id = favorites.movie_id\n" +
                 "JOIN users\n" +
                 "ON favorites.user_id = users.user_id\n" +
-                "WHERE users.email = \"snabelA\"\n" +
+                "WHERE users.email = ?\n" +
                 ";";
         List<Movie> favoriteMovies = new ArrayList<>();
         try(Connection connection = DatabaseConnection.getConnection();
@@ -113,18 +134,17 @@ public class DatabaseHandler {
                 Movie movie = new Movie(id, title, genre, duration, releaseYear, rating);
                 favoriteMovies.add(movie);
             }
-            return favoriteMovies;
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return favoriteMovies;
     }
-    public String addFavoriteMovie(User user, Movie movie) {
+    public String addFavoriteMovie(int userId, int movieId) {
         String sql = "INSERT INTO favorites (user_id, movie_id) VALUES (?, ?)";
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setInt(1, user.getUserId());
-            preparedStatement.setInt(2, movie.getMovieId());
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, movieId);
             int rowsInserted = preparedStatement.executeUpdate();
             if(rowsInserted > 0) {
                 return "Favorite movie added successfully";

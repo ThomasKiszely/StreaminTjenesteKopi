@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.thomas.streamintjenestekopi.MainView"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thomas.streamintjenestekopi.MainController">
+   <children>
+      <Button layoutX="120.0" layoutY="103.0" mnemonicParsing="false" onAction="#onShowAllMoviesClicked" prefHeight="45.0" prefWidth="161.0" text="Show all movies" />
+      <Button layoutX="329.0" layoutY="102.0" mnemonicParsing="false" onAction="#showFavoritesClicked" prefHeight="46.0" prefWidth="162.0" text="Show favorites" />
+      <Button layoutX="543.0" layoutY="102.0" mnemonicParsing="false" onAction="#onShowAllUsersClicked" prefHeight="46.0" prefWidth="162.0" text="Show users" />
+      <ListView fx:id="movieListView" layoutX="120.0" layoutY="399.0" prefHeight="206.0" prefWidth="588.0" />
+      <ListView fx:id="favoriteListView" layoutX="120.0" layoutY="399.0" prefHeight="206.0" prefWidth="588.0" />
+      <ListView fx:id="userListView" layoutX="120.0" layoutY="192.0" prefHeight="206.0" prefWidth="588.0" />
+      <Button layoutX="726.0" layoutY="102.0" mnemonicParsing="false" onAction="#goToUserMenu" prefHeight="46.0" prefWidth="162.0" text="UserMenu" />
+      <Button layoutX="726.0" layoutY="221.0" mnemonicParsing="false" onAction="#addAsFavorite" prefHeight="46.0" prefWidth="162.0" text="Add as favorite" />
+      <Label fx:id="label" layoutX="726.0" layoutY="308.0" prefHeight="46.0" prefWidth="162.0" text="Label" />
+   </children>
 </AnchorPane>

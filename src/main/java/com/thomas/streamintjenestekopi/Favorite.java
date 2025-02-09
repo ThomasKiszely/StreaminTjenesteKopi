@@ -1,6 +1,13 @@
 package com.thomas.streamintjenestekopi;
 
-public class Favorite {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Favorite {
+    private List<Movie> favorites = new ArrayList<>();
+
+    public Favorite(List<Movie> favorites) {
+        this.favorites = favorites;
+    }
 
 }

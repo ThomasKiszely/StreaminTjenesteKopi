@@ -1,5 +1,7 @@
 package com.thomas.streamintjenestekopi;
 
+import javafx.fxml.FXML;
+
 public class Movie {
     private int movieId;
     private String title;
@@ -7,6 +9,15 @@ public class Movie {
     private double duration;
     private int releaseYear;
     private int rating;
+
+    public Movie(int movieId, String title, String genre, double duration, int releaseYear, int rating) {
+        this.movieId = movieId;
+        this.title = title;
+        this.genre = genre;
+        this.duration = duration;
+        this.releaseYear = releaseYear;
+        this.rating = rating;
+    }
 
     public int getMovieId(){
         return movieId;
@@ -26,15 +37,9 @@ public class Movie {
     public int getRating(){
         return rating;
     }
-
-
-    public List <Movie> getAllMovies(){
-
+    @Override
+    public String toString() {
+        return("Movie: " + title + ". Rated " + rating + ". Realeased in " + releaseYear + ". Duration: " + String.format("%.0f", duration) + " minutes. Genre: " + genre);
     }
-
-
-
-
-
 
 }
